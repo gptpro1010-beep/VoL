@@ -1,0 +1,14 @@
+const int N = 100;
+const int n_side = 10;
+const int n_sims = 20;
+
+
+int T = (int)round(pm.L / pm.v);
+int T_max = 5000 * T;
+int dt_out = 5 * T;
+
+
+
+each sim required 2:30 in tinkercliffs
+#SBATCH --time=0:10:00
+    

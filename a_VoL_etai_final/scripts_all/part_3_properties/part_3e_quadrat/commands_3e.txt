@@ -1,0 +1,5 @@
+dos2unix script_1sh_quadrat_calc_and_avg.sh
+
+chmod +x script_1sh_quadrat_calc_and_avg.sh
+sbatch script_1sh_quadrat_calc_and_avg.sh
+
