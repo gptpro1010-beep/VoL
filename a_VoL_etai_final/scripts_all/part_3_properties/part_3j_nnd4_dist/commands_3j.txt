@@ -1,0 +1,4 @@
+dos2unix part_3j_nnd4_dist.sh
+
+chmod +x part_3j_nnd4_dist.sh
+sbatch part_3j_nnd4_dist.sh
