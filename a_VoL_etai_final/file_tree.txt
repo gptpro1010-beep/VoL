@@ -8,63 +8,73 @@ a_VoL_etai_final/
 │   │   └── script_1sh_run_vicsek_template.sh
 │   │
 │   ├── part_2_anim/
+│   │   ├── script_1a_movie_only_for_one_anim.m
+│   │   └── script_2_snaps.m
 │   │
 │   ├── part_3_properties/
-│   ├── part_3d_properties_data/
-│   │
-│   ├── part_4_post/
-│   │
-│   └── part_5_verification/
+│   └── part_4_post/
 │
-└── sim_data/
-
+├── file_tree.txt
+├── params.txt
+└── README.md
 
 
 
 part_3_properties/
 │
 ├── part_3a_nnd/
-├── part_3b_degree/
-├── part_3c_gr/
-├── part_3d_inter_event_distance/
-├── part_3e_quadrat/
-└── part_3f_nnd_dist/
-
-
-
-part_3d_properties_data/
+│   ├── commands_3a.txt
+│   ├── script_1_nnd_calc_and_avg.cpp
+│   └── script_1sh_nnd_calc_and_avg.sh
 │
-├── part_3a_nnd/
+├── part_3a_nnd_nosingle/
+│   ├── commands_3a.txt
+│   ├── script_1_nnd_nosingle_calc_and_avg.cpp
+│   └── script_1sh_nnd_nosingle_calc_and_avg.sh
+│
 ├── part_3b_degree/
+│   ├── commands_3b.txt
+│   ├── script_1_avgdeg_calc_and_avg.cpp
+│   └── script_1sh_avgdeg_calc_and_avg.sh
+│
+├── part_3b_degree_nosingle/
+│   ├── commands_3b.txt
+│   ├── script_1_avgdeg_nosingle_calc_and_avg.cpp
+│   └── script_1sh_avgdeg_nosingle_calc_and_avg.sh
+│
 ├── part_3c_gr/
-├── part_3d_ied/
+│   ├── commands.txt
+│   ├── script_1_gr_calc_and_avg.cpp
+│   └── script_1sh_gr_calc_and_avg.sh
+│
+├── part_3d_inter_event_distance/
+│   ├── commands_3d.txt
+│   ├── script_1_ied_calc_and_avg.cpp
+│   └── script_1sh_ied_calc_and_avg.sh
+│
 ├── part_3e_quadrat/
-└── part_3f_nnd_dist/
+│   ├── commands_3e.txt
+│   ├── script_1_quadrat_calc_and_avg.cpp
+│   └── script_1sh_quadrat_calc_and_avg.sh
+│
+├── part_3f_nnd_dist/
+│   ├── commands_3f.txt
+│   ├── script_1_nnd_dist_calc_and_avg.cpp
+│   └── script_1sh_nnd_dist_calc_and_avg.sh
+│
+├── part_3g_uperp/
+│   ├── commands_3g.txt
+│   ├── script_1_uperp_calc_and_avg.cpp
+│   └── script_1sh_uperp_calc_and_avg.sh
+│
+└── part_3h_avgheading/
+    ├── commands_3g.txt
+    ├── script_1_avgheading_calc_and_avg.cpp
+    └── script_1sh_avgheading_calc_and_avg.sh
 
 
 
 part_4_post/
-│
-├── data/
-│   ├── data_4d_ied_csr/
-│   └── data_4f_nndDist_csr/
-│
-├── figs/
-│   ├── figs_4_1_op/
-│   ├── figs_4a_nnd/
-│   ├── figs_4b_degree/
-│   ├── figs_4c_gr_fixed_density/
-│   ├── figs_4c_gr_fixed_speed/
-│   ├── figs_4d_part_2_ied_csr_test/
-│   ├── figs_4d_part_3_ied_EMD_vs_t_fixed_density/
-│   ├── figs_4d_part_3_ied_EMD_vs_t_fixed_speed/
-│   ├── figs_4d_part_4_ied_phase_like/
-│   ├── figs_4e_part_1_quadrat_I/
-│   ├── figs_4e_part_2_quadrat_frac_reject_05/
-│   ├── figs_4e_part_3_quadrat_p_fisher/
-│   ├── figs_4f_part_2_nndDist_csr_test/
-│   ├── figs_4f_part_3_nnd_phase_like/
-│   └── figs_4f_part_4_nndDist_time_to_get_irregular/
 │
 ├── script_4_1_op.m
 │
@@ -90,32 +100,12 @@ part_4_post/
 ├── script_4f_part_1_nndDist_csr.m
 ├── script_4f_part_2_nndDist_csr_test.m
 ├── script_4f_part_3_nndDist_phase_like.m
-└── script_4f_part_4_nndDist_time_to_get_irregular.m
-
-
+├── script_4f_part_4_nndDist_time_to_get_irregular.m
+│
+└── script_4h_avg_heading.m
 
 
 
 part_5_verification/
 │
-├── figs/
-│   ├── figs_5a_nnd/
-│   └── figs_5b_degree/
-│
-├── script_5a_part_1a_final_nnd_vs_density.m
-├── script_5a_part_1b_final_nnd_vs_speed.m
-├── script_5a_part_1c_final_nnd_heatmap.m
-│
-├── script_5a_part_2a_nnd_collapse_fixed_density.m
-├── script_5a_part_2b_nnd_collapse_fixed_speed.m
-│
-├── script_5b_part_1a_final_degree_vs_density.m
-├── script_5b_part_1b_final_degree_vs_speed.m
-├── script_5b_part_1c_final_degree_heatmap.m
-│
-├── script_5b_part_2a_degree_collapse_fixed_density.m
-└── script_5b_part_2b_degree_collapse_fixed_speed.m
-
-
-
-
+└── (not present in scripts_all in current snapshot)
