@@ -1,0 +1,4 @@
+dos2unix part_3i_NND4.sh
+
+chmod +x part_3i_NND4.sh
+sbatch part_3i_NND4.sh
