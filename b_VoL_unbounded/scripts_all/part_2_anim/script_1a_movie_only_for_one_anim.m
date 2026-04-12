@@ -19,10 +19,23 @@ lcc_idx_file = sprintf(['../part_3d_properties_data/part_3a_lcc_indices/' ...
 lcc_nodes_by_snap = load_lcc_nodes(lcc_idx_file);
 
 files = dir(fullfile(sim_folder, sprintf('sim_data_noise_%.2f_sim_*_snap_*.txt', noise)));
+if isempty(files)
+    error('No simulation snapshot files found in: %s', sim_folder);
+end
 
-snap_idx = zeros(1, numel(files));
+snap_idx = nan(1, numel(files));
 for i = 1:numel(files)
-    snap_idx(i) = sscanf(files(i).name, 'sim_data_noise_%*f_sim_%*d_snap_%d.txt');
+    parsed_idx = sscanf(files(i).name, 'sim_data_noise_%*f_sim_%*d_snap_%d.txt');
+    if ~isempty(parsed_idx)
+        snap_idx(i) = parsed_idx;
+    end
+end
+
+valid = ~isnan(snap_idx);
+files = files(valid);
+snap_idx = snap_idx(valid);
+if isempty(files)
+    error('Snapshot filenames did not match expected pattern in: %s', sim_folder);
 end
 
 [snap_idx, idx] = sort(snap_idx);
@@ -66,7 +79,7 @@ for i = 1:numFrames
     end
 
     plt_motion(x, y, theta, t, figure_handle, rho, speed, cx, cy, view_box_length);
-    frame = getframe(gcf);
+    frame = getframe(figure_handle);
     writeVideo(video_writer, frame);
 end
 
