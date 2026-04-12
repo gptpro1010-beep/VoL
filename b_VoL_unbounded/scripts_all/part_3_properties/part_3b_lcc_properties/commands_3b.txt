@@ -1,0 +1,2 @@
+chmod +x script_1sh_lcc_properties_calc_and_avg.sh
+sbatch script_1sh_lcc_properties_calc_and_avg.sh

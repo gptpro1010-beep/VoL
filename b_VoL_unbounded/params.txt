@@ -1,0 +1,13 @@
+const int N = 100;
+const int n_side = 10;
+const int n_sims = 20;
+
+T_max = 5000 timesteps
+save_every = 50 timesteps
+dt_out = save_every
+
+rhos   = [1.00, 2.00, 4.00, 8.00]
+speeds = [0.01, 0.02, 0.04, 0.08]
+noise  = 0.01
+
+unbounded dynamics: no periodic boundary, no wall boundary

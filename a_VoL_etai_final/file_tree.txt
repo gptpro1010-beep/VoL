@@ -109,3 +109,19 @@ part_4_post/
 part_5_verification/
 │
 └── (not present in scripts_all in current snapshot)
+
+
+expected_sim_output_for_one_parameter_set/
+│
+└── sim_data/vicsek_density_<rho>_speed_<s>_noise_0.01/
+    └── sim_01/
+        ├── order_param_noise_0.01_sim_01_timeseries.txt
+        └── sim_data/
+            ├── sim_data_noise_0.01_sim_01_snap_00000.txt
+            ├── sim_data_noise_0.01_sim_01_snap_00001.txt
+            ├── ...
+            └── sim_data_noise_0.01_sim_01_snap_<last>.txt
+
+note:
+- output for sim_02 to sim_20 follows the same structure and naming pattern.
+- figure outputs are intentionally omitted.
