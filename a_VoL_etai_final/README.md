@@ -1,16 +1,19 @@
 # a_VoL_etai_final
 
-This folder contains scripts used in the VoL workflow.
+This project simulates particles that start from a lattice and evolve using Vicsek-type alignment dynamics with periodic boundaries. The workflow sweeps density (`rho`) and speed (`s`) at fixed noise (`eta`), then saves order-parameter time series and particle snapshots for analysis. Downstream scripts compute spatial/temporal statistics and generate post-processed summaries. See `file_tree.txt` for the project file structure and expected output tree.
 
-## What is here
+## Simulation parameter values (part_1_sim)
 
-- `scripts_all/part_1_sim/`: simulation template files and run commands.
-- `scripts_all/part_2_anim/`: MATLAB scripts for movies and snapshots.
-- `scripts_all/part_3_properties/`: C++ and shell scripts for property calculations.
-- `scripts_all/part_4_post/`: MATLAB scripts for post-processing.
-- `params.txt`: notes about key parameters.
-- `file_tree.txt`: the detailed file and folder list.
-
-## Note
-
-- `part_5_verification/` is listed in `file_tree.txt` for consistency, but it is not in the current `scripts_all/` folder.
+- **Densities (`rho`)**: `1.00, 2.00, 4.00, 8.00, 16.00`
+- **Speeds (`s`)**: `0.01, 0.02, 0.04, 0.08, 0.16`
+- **Noise (`eta`)**: `0.01`
+- **Number of particles (`N`)**: `100`
+- **Initial lattice side (`n_side`)**: `10`
+- **Number of realizations (`n_sims`)**: `20` (`sim_01` ... `sim_20`)
+- **Interaction radius (`r`)**: `1.0`
+- **Box size (`L`)**: `sqrt(N / rho)`
+- **Characteristic time (`T`)**: `round(L / s)`
+- **Max integration steps (`T_max`)**: `5000 * T`
+- **Snapshot interval in steps (`dt_out`)**: `5 * T`
+- **Order-parameter write interval**: every `T` steps
+- **Scheduler walltime request**: `#SBATCH --time=0:10:00`
