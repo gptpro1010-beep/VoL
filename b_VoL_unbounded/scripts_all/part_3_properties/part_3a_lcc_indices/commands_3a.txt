@@ -1,2 +1,4 @@
+dos2unix "script_1sh_lcc_indices_calc.sh" >/dev/null 2>&1
+
 chmod +x script_1sh_lcc_indices_calc.sh
 sbatch script_1sh_lcc_indices_calc.sh
