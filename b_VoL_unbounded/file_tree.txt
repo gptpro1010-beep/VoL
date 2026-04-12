@@ -1,0 +1,39 @@
+b_VoL_unbounded/
+│
+├── scripts_all/
+│   │
+│   ├── part_1_sim/
+│   │   ├── commands.txt
+│   │   ├── script_1_Vicsek_sim_template.cpp
+│   │   └── script_1sh_run_vicsek_template.sh
+│   │
+│   ├── part_2_anim/
+│   │   ├── script_1a_movie_only_for_one_anim.m
+│   │   └── script_2_snaps.m
+│   │
+│   ├── part_3_properties/
+│   │   ├── part_3a_lcc_indices/
+│   │   │   ├── commands_3a.txt
+│   │   │   ├── script_1_lcc_indices_calc.cpp
+│   │   │   └── script_1sh_lcc_indices_calc.sh
+│   │   │
+│   │   ├── part_3b_lcc_properties/
+│   │   │   ├── commands_3b.txt
+│   │   │   ├── script_1_lcc_properties_calc_and_avg.cpp
+│   │   │   └── script_1sh_lcc_properties_calc_and_avg.sh
+│   │   │
+│   │   └── part_3c_single_particles/
+│   │       ├── commands_3c.txt
+│   │       ├── script_1_single_particles_calc_and_avg.cpp
+│   │       └── script_1sh_single_particles_calc_and_avg.sh
+│   │
+│   └── part_4_post/
+│       ├── script_4a_lcc_size_vs_t.m
+│       ├── script_4b_lcc_avg_heading_vs_t.m
+│       ├── script_4c_lcc_polarization_vs_t.m
+│       ├── script_4d_lcc_centroid_vs_t.m
+│       └── script_4e_single_particles_vs_t.m
+│
+├── file_tree.txt
+├── params.txt
+└── README.md
