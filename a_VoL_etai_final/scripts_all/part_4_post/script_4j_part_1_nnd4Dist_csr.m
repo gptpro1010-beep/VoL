@@ -17,7 +17,7 @@ for b = 1:B
     xs = rand(N,1);
     ys = rand(N,1);
 
-    % 4th-nearest-neighbour distances
+    % average distance to 4 nearest neighbours
     d4 = zeros(N,1);
 
     for i = 1:N
@@ -32,7 +32,7 @@ for b = 1:B
         d2(i) = inf;            % exclude self
 
         ds = sqrt(sort(d2, 'ascend'));
-        d4(i) = ds(4);
+        d4(i) = mean(ds(1:4));
     end
 
     % empirical CDF of NND4
@@ -58,7 +58,7 @@ outFile = fullfile(outDir, ...
 
 %% Write file
 fid = fopen(outFile, 'w');
-fprintf(fid, '# CSR envelope for NND4 distribution (CDF) (periodic unit box)\n');
+fprintf(fid, '# CSR envelope for mean distance to 4 nearest neighbours (CDF) (periodic unit box)\n');
 fprintf(fid, '# N=%d  B=%d  grid=141  tmax=2/sqrt(N)\n', N, B);
 fprintf(fid, '# columns: t_s  H4_low  H4_high\n');
 
