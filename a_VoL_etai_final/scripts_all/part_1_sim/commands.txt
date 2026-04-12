@@ -1,4 +1,4 @@
-command_1_get_Vicsek_cpp
+# command_1_get_Vicsek_cpp
 
 #!/bin/bash
 noise=0.01
@@ -29,7 +29,7 @@ done
 
 
 
-command_2_run_Vicsek_jobs
+# command_2_run_Vicsek_jobs
 
 #!/bin/bash
 noise=0.01
