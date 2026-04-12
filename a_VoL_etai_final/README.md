@@ -1,6 +1,6 @@
 # a_VoL_etai_final
 
-This project simulates particles that start from a lattice and evolve using Vicsek-type alignment dynamics with periodic boundaries. The workflow sweeps density (`rho`) and speed (`s`) at fixed noise (`eta`), then saves order-parameter time series and particle snapshots for analysis. Downstream scripts compute spatial/temporal statistics and generate post-processed summaries. See `file_tree.txt` for the project file structure and expected output tree.
+This project simulates particles that start from a lattice and evolve using Vicsek-type alignment dynamics with periodic boundaries. The workflow sweeps density (`rho`) and speed (`s`) at fixed noise (`eta`), then saves order-parameter time series and particle snapshots for analysis. Downstream scripts compute spatial/temporal statistics and generate post-processed summaries. See `file_tree.txt` for the project file structure and folder-level details.
 
 ## Simulation parameter values (part_1_sim)
 
