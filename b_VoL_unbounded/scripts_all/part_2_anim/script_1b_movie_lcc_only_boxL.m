@@ -6,7 +6,8 @@ noise = 0.01;
 save_every = 200;
 
 sim_idx = 1;
-L = sqrt(N / rho);
+L_init = sqrt(N / rho);
+view_box_length = 3.0 * L_init;
 
 sim_folder = sprintf('../../sim_data/vicsek_unbounded_density_%.2f_speed_%.2f_noise_%.2f/sim_%02d/sim_data', ...
                      rho, speed, noise, sim_idx);
@@ -67,7 +68,7 @@ for i = 1:numFrames
     cx = mean(x_lcc);
     cy = mean(y_lcc);
 
-    plt_motion_lcc_only(x_lcc, y_lcc, theta_lcc, t, figure_handle, rho, speed, cx, cy, L);
+    plt_motion_lcc_only(x_lcc, y_lcc, theta_lcc, t, figure_handle, rho, speed, cx, cy, view_box_length);
     frame = getframe(gcf);
     writeVideo(video_writer, frame);
 end
