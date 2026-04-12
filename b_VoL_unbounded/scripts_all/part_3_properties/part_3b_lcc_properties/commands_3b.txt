@@ -1,2 +1,4 @@
+dos2unix "script_1sh_lcc_properties_calc_and_avg.sh" >/dev/null 2>&1
+
 chmod +x script_1sh_lcc_properties_calc_and_avg.sh
 sbatch script_1sh_lcc_properties_calc_and_avg.sh
