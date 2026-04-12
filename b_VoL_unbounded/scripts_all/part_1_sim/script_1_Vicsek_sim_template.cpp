@@ -89,8 +89,8 @@ int main() {
     pm.noise = noise;
     pm.L_init = sqrt(N / rho);
 
-    int T_max = 5000;
-    int save_every = 50;
+    int T_max = 50000;
+    int save_every = 200;
     int dt_out = save_every;
 
     #pragma omp parallel for schedule(static)

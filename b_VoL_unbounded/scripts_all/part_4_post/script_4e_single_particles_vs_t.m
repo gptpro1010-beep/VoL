@@ -1,7 +1,7 @@
 clearvars; close all; clc;
 %%
 noise = 0.01;
-save_every = 50;
+save_every = 200;
 
 rhos   = [1 2 4 8];
 speeds = [0.01];
