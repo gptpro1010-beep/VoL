@@ -6,8 +6,7 @@ noise = 0.01;
 save_every = 200;
 
 sim_idx = 1;
-L_init = sqrt(N / rho);
-view_box_length = 3.0 * L_init;
+L = sqrt(N / rho);
 
 sim_folder = sprintf('../../sim_data/vicsek_unbounded_density_%.2f_speed_%.2f_noise_%.2f/sim_%02d/sim_data', ...
                      rho, speed, noise, sim_idx);
@@ -19,30 +18,17 @@ lcc_idx_file = sprintf(['../part_3d_properties_data/part_3a_lcc_indices/' ...
 lcc_nodes_by_snap = load_lcc_nodes(lcc_idx_file);
 
 files = dir(fullfile(sim_folder, sprintf('sim_data_noise_%.2f_sim_*_snap_*.txt', noise)));
-if isempty(files)
-    error('No simulation snapshot files found in: %s', sim_folder);
-end
 
-snap_idx = nan(1, numel(files));
+snap_idx = zeros(1, numel(files));
 for i = 1:numel(files)
-    parsed_idx = sscanf(files(i).name, 'sim_data_noise_%*f_sim_%*d_snap_%d.txt');
-    if ~isempty(parsed_idx)
-        snap_idx(i) = parsed_idx;
-    end
-end
-
-valid = ~isnan(snap_idx);
-files = files(valid);
-snap_idx = snap_idx(valid);
-if isempty(files)
-    error('Snapshot filenames did not match expected pattern in: %s', sim_folder);
+    snap_idx(i) = sscanf(files(i).name, 'sim_data_noise_%*f_sim_%*d_snap_%d.txt');
 end
 
 [snap_idx, idx] = sort(snap_idx);
 simDataFiles = files(idx);
 numFrames = numel(simDataFiles);
 
-video_name = sprintf('AniMotion_unbounded_N%d_rho_%.2f_speed_%.2f_sim_%02d', ...
+video_name = sprintf('AniMotion_unbounded_LCC_only_boxL_N%d_rho_%.2f_speed_%.2f_sim_%02d', ...
                      N, rho, speed, sim_idx);
 
 video_writer = VideoWriter(video_name, 'Motion JPEG AVI');
@@ -71,15 +57,18 @@ for i = 1:numFrames
     end
 
     if isempty(lcc_nodes)
-        cx = mean(x);
-        cy = mean(y);
-    else
-        cx = mean(x(lcc_nodes));
-        cy = mean(y(lcc_nodes));
+        continue;
     end
 
-    plt_motion(x, y, theta, t, figure_handle, rho, speed, cx, cy, view_box_length);
-    frame = getframe(figure_handle);
+    x_lcc = x(lcc_nodes);
+    y_lcc = y(lcc_nodes);
+    theta_lcc = theta(lcc_nodes);
+
+    cx = mean(x_lcc);
+    cy = mean(y_lcc);
+
+    plt_motion_lcc_only(x_lcc, y_lcc, theta_lcc, t, figure_handle, rho, speed, cx, cy, L);
+    frame = getframe(gcf);
     writeVideo(video_writer, frame);
 end
 
@@ -131,7 +120,7 @@ function lcc_nodes_by_snap = load_lcc_nodes(filename)
 end
 
 
-function plt_motion(xx, yy, theta, t, figure_handle, rho, speed, cx, cy, box_length)
+function plt_motion_lcc_only(xx, yy, theta, t, figure_handle, rho, speed, cx, cy, box_length)
     figure(figure_handle);
     clf;
     set(gca, 'FontSize', 20, 'TickLabelInterpreter', 'latex');
@@ -146,7 +135,7 @@ function plt_motion(xx, yy, theta, t, figure_handle, rho, speed, cx, cy, box_len
     ylim([cy - half_span, cy + half_span]);
     axis square;
 
-    title(sprintf('$\\rho = %.2f,\\ v = %.2f,\\ t = %d$', rho, speed, t), ...
+    title(sprintf('$\\rho = %.2f,\\ v = %.2f,\\ t = %d$ (LCC only)', rho, speed, t), ...
           'Interpreter', 'latex', 'FontSize', 20);
 
     box on;
