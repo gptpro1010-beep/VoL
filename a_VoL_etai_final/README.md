@@ -1,46 +1,32 @@
 # a_VoL_etai_final
 
-This folder contains scripts used in the VoL workflow.
-
-## What is here
-
-- `scripts_all/part_1_sim/`: simulation template files and run commands.
-- `scripts_all/part_2_anim/`: MATLAB scripts for movies and snapshots.
-- `scripts_all/part_3_properties/`: C++ and shell scripts for property calculations.
-- `scripts_all/part_4_post/`: MATLAB scripts for post-processing.
-- `params.txt`: notes about key parameters.
-- `file_tree.txt`: the detailed file and folder list.
+This project simulates particles that start from a lattice and evolve using Vicsek-type alignment dynamics with periodic boundaries. The workflow sweeps density (`rho`) and speed (`s`) at fixed noise (`eta`), then saves order-parameter time series and particle snapshots for analysis. Downstream scripts compute spatial/temporal statistics and generate post-processed summaries. See `file_tree.txt` for the project file structure and folder-level details.
 
 ## Simulation parameter values (part_1_sim)
 
-These values are defined in `scripts_all/part_1_sim/commands.txt` and `script_1_Vicsek_sim_template.cpp`.
-
 - **Densities (`rho`)**: `1.00, 2.00, 4.00, 8.00, 16.00`
-- **Speeds (`v`)**: `0.01, 0.02, 0.04, 0.08, 0.16`
+- **Speeds (`s`)**: `0.01, 0.02, 0.04, 0.08, 0.16`
 - **Noise (`eta`)**: `0.01`
 - **Number of particles (`N`)**: `100`
 - **Initial lattice side (`n_side`)**: `10`
 - **Number of realizations (`n_sims`)**: `20` (`sim_01` ... `sim_20`)
 - **Interaction radius (`r`)**: `1.0`
 - **Box size (`L`)**: `sqrt(N / rho)`
-- **Characteristic time (`T`)**: `round(L / v)`
+- **Characteristic time (`T`)**: `round(L / s)`
 - **Max integration steps (`T_max`)**: `5000 * T`
 - **Snapshot interval in steps (`dt_out`)**: `5 * T`
-- **Order-parameter write interval in steps**: every `T` steps
+- **Order-parameter write interval**: every `T` steps
 - **Scheduler walltime request**: `#SBATCH --time=0:10:00`
 
 ## Expected output file structure (simulation output)
 
 Expected structure for one parameter combination:
-`sim_data/vicsek_density_<rho>_speed_<speed>_noise_0.01/`
+`sim_data/vicsek_density_<rho>_speed_<s>_noise_0.01/`
 
-Below is the expected tree for **`sim_01` only** (as requested):
+Expected tree for **`sim_01` only**:
 
 ```text
-sim_data/vicsek_density_<rho>_speed_<speed>_noise_0.01/
-├── script_1_Vicsek_sim.cpp
-├── run_vicsek.sh
-├── vicsek_exec
+sim_data/vicsek_density_<rho>_speed_<s>_noise_0.01/
 └── sim_01/
     ├── order_param_noise_0.01_sim_01_timeseries.txt
     └── sim_data/
@@ -50,10 +36,5 @@ sim_data/vicsek_density_<rho>_speed_<speed>_noise_0.01/
         └── sim_data_noise_0.01_sim_01_snap_<last>.txt
 ```
 
-Notes:
 - Output for `sim_02` to `sim_20` follows the same structure and naming pattern.
 - Figure outputs are intentionally omitted here.
-
-## Note
-
-- `part_5_verification/` is listed in `file_tree.txt` for consistency, but it is not in the current `scripts_all/` folder.
