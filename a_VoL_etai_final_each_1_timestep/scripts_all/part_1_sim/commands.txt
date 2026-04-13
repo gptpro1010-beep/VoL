@@ -1,0 +1,65 @@
+command_1_get_Vicsek_cpp
+
+#!/bin/bash
+noise=0.01
+noise_cpp_format="0.01"
+rhos="1.00 2.00 4.00 8.00 16.00"
+speeds="0.01 0.02 0.04 0.08 0.16"
+for rho in $rhos
+do
+  for speed in $speeds
+  do
+      folder="../../sim_data/vicsek_density_${rho}_speed_${speed}_noise_${noise}"
+      mkdir -p "$folder"
+      # generate cpp
+      sed -e "s|{RHO_VALUE}|$rho|g" \
+          -e "s|{SPEED_VALUE}|$speed|g" \
+          -e "s|{NOISE_VALUE}|$noise_cpp_format|g" \
+          script_1_Vicsek_sim_template.cpp \
+          > "$folder/script_1_Vicsek_sim.cpp"
+      # generate job script inside the same folder
+      sed -e "s|{RHO}|$rho|g" \
+          -e "s|{SPEED}|$speed|g" \
+          script_1sh_run_vicsek_template.sh \
+          > "$folder/run_vicsek.sh"
+      chmod +x "$folder/run_vicsek.sh"
+      dos2unix "$folder/run_vicsek.sh" >/dev/null 2>&1
+  done
+done
+
+
+
+command_2_run_Vicsek_jobs
+
+#!/bin/bash
+noise=0.01
+rhos="1.00 2.00 4.00 8.00 16.00"
+speeds="0.01 0.02 0.04 0.08 0.16"
+for rho in $rhos
+do
+  for speed in $speeds
+  do
+      folder="../../sim_data/vicsek_density_${rho}_speed_${speed}_noise_${noise}"
+      if [ -d "$folder" ]; then
+            timeseries="$folder/sim_01/order_param_noise_${noise}_sim_01_timeseries.txt"
+            
+            if [ -f "$timeseries" ]; then
+              echo "Skipping rho=$rho speed=$speed (already done)"
+              continue
+            fi
+            echo "Submitting rho=$rho speed=$speed"
+            cd "$folder"
+            sbatch run_vicsek.sh
+            cd - >/dev/null 2>&1
+      fi
+  done
+done
+
+
+
+
+
+
+
+
+
