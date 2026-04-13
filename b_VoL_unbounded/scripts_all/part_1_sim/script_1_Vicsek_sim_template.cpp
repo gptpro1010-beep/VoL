@@ -89,8 +89,8 @@ int main() {
     pm.noise = noise;
     pm.L_init = sqrt(N / rho);
 
-    int T_max = 20000;
     int T = static_cast<int>(round(pm.L_init / pm.v));
+    int T_max = 20000 * T;
     int save_every = 1 * T;
     int dt_out = save_every;
 
