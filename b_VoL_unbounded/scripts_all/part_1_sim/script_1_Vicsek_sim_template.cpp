@@ -89,15 +89,15 @@ int main() {
     pm.noise = noise;
     pm.L_init = sqrt(N / rho);
 
-    int T_max = 50000;
-    int save_every = 200;
+    int T_max = 20000;
+    int T = static_cast<int>(round(pm.L_init / pm.v));
+    int save_every = 1 * T;
     int dt_out = save_every;
 
     #pragma omp parallel for schedule(static)
     for (int sim = 1; sim <= n_sims; sim++) {
 
         mt19937 rng(12345u + sim);
-        uniform_real_distribution<float> angle_dist(0.0f, 2.0f * M_PI);
 
         char sim_dir[64];
         sprintf(sim_dir, "sim_%02d", sim);
@@ -115,7 +115,7 @@ int main() {
 
         float spacing = pm.L_init / n_side;
         int idx = 0;
-        float theta0 = angle_dist(rng);
+        float theta0 = 0.0f;
         for (int i = 0; i < n_side; i++) {
             for (int j = 0; j < n_side; j++) {
                 x[idx] = i * spacing;
