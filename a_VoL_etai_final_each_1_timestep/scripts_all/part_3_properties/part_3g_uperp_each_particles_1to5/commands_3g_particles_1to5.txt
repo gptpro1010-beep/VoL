@@ -1,0 +1,4 @@
+dos2unix script_1sh_uperp2_each_particle_calc.sh
+
+chmod +x script_1sh_uperp2_each_particle_calc.sh
+sbatch script_1sh_uperp2_each_particle_calc.sh
