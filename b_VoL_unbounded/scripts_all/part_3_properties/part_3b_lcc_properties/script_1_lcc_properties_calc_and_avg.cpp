@@ -118,9 +118,7 @@ int main()
     const double noise = 0.01;
     const int SIM_MIN = 1;
     const int SIM_MAX = 20;
-    const int total_time = 50000;
-    const int save_every = 200;
-    const int k_max = total_time / save_every;
+    const int k_max = 20000;
     const double r = 1.0;
 
     std::vector<double> rho_vals = {1.00, 2.00, 4.00, 8.00};
