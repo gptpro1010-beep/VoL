@@ -1,7 +1,7 @@
 clearvars; close all; clc;
 %%
 noise = 0.01;
-save_every = 200;
+N = 100;
 
 rhos   = [1 2 4 8];
 speeds = [0.01];
@@ -17,12 +17,13 @@ for iSpeed = 1:numel(speeds)
 
     s = speeds(iSpeed);
 
-    fig = figure('Units','pixels','Position',[200 200 900 700]);
+    figX = figure('Units','pixels','Position',[200 200 900 700]);
+    axX = axes(figX);
+    hold(axX,'on');
 
-    ax1 = subplot(2,1,1);
-    hold(ax1,'on');
-    ax2 = subplot(2,1,2);
-    hold(ax2,'on');
+    figY = figure('Units','pixels','Position',[220 220 900 700]);
+    axY = axes(figY);
+    hold(axY,'on');
 
     colors = lines(numel(rhos));
 
@@ -41,39 +42,42 @@ for iSpeed = 1:numel(speeds)
 
         k      = D(:,1);
         cx_m   = D(:,8);
-        cx_s   = D(:,9);
         cy_m   = D(:,10);
-        cy_s   = D(:,11);
 
+        L_init = sqrt(N / rho);
+        T = max(1, round(L_init / s));
+        save_every = 1 * T;
         t = save_every*k;
 
-        plot(ax1, t, cx_m, 'LineWidth',2, 'Color', colors(iRho,:), ...
+        plot(axX, t, cx_m, 'LineWidth',2, 'Color', colors(iRho,:), ...
             'DisplayName', sprintf('$\\rho = %g$', rho));
-        plot(ax2, t, cy_m, 'LineWidth',2, 'Color', colors(iRho,:), ...
+        plot(axY, t, cy_m, 'LineWidth',2, 'Color', colors(iRho,:), ...
             'DisplayName', sprintf('$\\rho = %g$', rho));
-
-        % errorbar(ax1, t, cx_m, cx_s, 'LineStyle','none', 'Color', colors(iRho,:), 'CapSize', 0);
-        % errorbar(ax2, t, cy_m, cy_s, 'LineStyle','none', 'Color', colors(iRho,:), 'CapSize', 0);
     end
 
-    ax1.FontSize = 16;
-    ax1.TickLabelInterpreter = 'latex';
-    ylabel(ax1, '$x_C$', 'Interpreter','latex','FontSize',16);
-    title(ax1, sprintf('$x_C(t)$ at $s=%.2f$', s), 'Interpreter','latex','FontSize',16);
-    legend(ax1,'Location','northwest','Interpreter','latex');
-    grid(ax1,'on');
-    box(ax1,'on');
+    axX.FontSize = 16;
+    axX.TickLabelInterpreter = 'latex';
+    xlabel(axX, '$t$', 'Interpreter','latex','FontSize',16);
+    ylabel(axX, '$x_C$', 'Interpreter','latex','FontSize',16);
+    title(axX, sprintf('$x_C(t)$ at $s=%.2f$', s), 'Interpreter','latex','FontSize',16);
+    legend(axX,'Location','northwest','Interpreter','latex');
+    grid(axX,'on');
+    box(axX,'on');
 
-    ax2.FontSize = 16;
-    ax2.TickLabelInterpreter = 'latex';
-    xlabel(ax2, '$t$', 'Interpreter','latex','FontSize',16);
-    ylabel(ax2, '$y_C$', 'Interpreter','latex','FontSize',16);
-    title(ax2, sprintf('$y_C(t)$ at $s=%.2f$', s), 'Interpreter','latex','FontSize',16);
-    legend(ax2,'Location','northwest','Interpreter','latex');
-    grid(ax2,'on');
-    box(ax2,'on');
+    axY.FontSize = 16;
+    axY.TickLabelInterpreter = 'latex';
+    xlabel(axY, '$t$', 'Interpreter','latex','FontSize',16);
+    ylabel(axY, '$y_C$', 'Interpreter','latex','FontSize',16);
+    title(axY, sprintf('$y_C(t)$ at $s=%.2f$', s), 'Interpreter','latex','FontSize',16);
+    legend(axY,'Location','northwest','Interpreter','latex');
+    grid(axY,'on');
+    box(axY,'on');
 
-    fname = sprintf('lcc_centroid_vs_time_speed_%.2f.png', s);
-    fpath = fullfile(outDir, fname);
-    print(fig, fpath, '-dpng', '-r600');
+    fnameX = sprintf('lcc_centroid_x_vs_time_speed_%.2f.png', s);
+    fpathX = fullfile(outDir, fnameX);
+    print(figX, fpathX, '-dpng', '-r600');
+
+    fnameY = sprintf('lcc_centroid_y_vs_time_speed_%.2f.png', s);
+    fpathY = fullfile(outDir, fnameY);
+    print(figY, fpathY, '-dpng', '-r600');
 end
