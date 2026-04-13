@@ -90,7 +90,7 @@ int main() {
     pm.L_init = sqrt(N / rho);
 
     int T_max = 20000;
-    int T = max(1, static_cast<int>(round(pm.L_init / pm.v)));
+    int T = static_cast<int>(round(pm.L_init / pm.v));
     int save_every = 1 * T;
     int dt_out = save_every;
 
