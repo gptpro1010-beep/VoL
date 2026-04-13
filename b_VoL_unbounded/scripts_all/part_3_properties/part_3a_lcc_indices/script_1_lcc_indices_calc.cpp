@@ -101,51 +101,58 @@ int main()
 
     fs::create_directories("../../part_3d_properties_data/part_3a_lcc_indices");
 
-    for (double rho : rho_vals)
-    for (double spd : speed_vals)
-    for (int sim = SIM_MIN; sim <= SIM_MAX; ++sim)
-    {
-        char outname[512];
-        std::snprintf(outname, sizeof(outname),
-            "../../part_3d_properties_data/part_3a_lcc_indices/"
-            "lcc_indices_rho_%.2f_speed_%.2f_noise_%.2f_sim_%02d.txt",
-            rho, spd, noise, sim);
+    for (int irho = 0; irho < (int)rho_vals.size(); ++irho)
+    for (int ispd = 0; ispd < (int)speed_vals.size(); ++ispd) {
+            const double rho = rho_vals[irho];
+            const double spd = speed_vals[ispd];
+            #pragma omp parallel for schedule(dynamic)
+            for (int sim = SIM_MIN; sim <= SIM_MAX; ++sim) {
+            char outname[512];
+            std::snprintf(outname, sizeof(outname),
+                "../../part_3d_properties_data/part_3a_lcc_indices/"
+                "lcc_indices_rho_%.2f_speed_%.2f_noise_%.2f_sim_%02d.txt",
+                rho, spd, noise, sim);
 
-        std::ofstream out(outname);
-        out << "# snap_idx size indices_0based\n";
+            std::ofstream out(outname);
+            out << "# snap_idx size indices_0based\n";
 
-        bool has_prev = false;
-        double prev_cx = 0.0, prev_cy = 0.0;
+            bool has_prev = false;
+            double prev_cx = 0.0, prev_cy = 0.0;
 
-        for (int k = 0; k <= k_max; ++k) {
-            char fpath[1024];
-            std::snprintf(fpath, sizeof(fpath),
-                "../../../sim_data/vicsek_unbounded_density_%.2f_speed_%.2f_noise_%.2f/"
-                "sim_%02d/sim_data/"
-                "sim_data_noise_%.2f_sim_%02d_snap_%05d.txt",
-                rho, spd, noise,
-                sim,
-                noise, sim, k);
+            for (int k = 0; k <= k_max; ++k) {
+                char fpath[1024];
+                std::snprintf(fpath, sizeof(fpath),
+                    "../../../sim_data/vicsek_unbounded_density_%.2f_speed_%.2f_noise_%.2f/"
+                    "sim_%02d/sim_data/"
+                    "sim_data_noise_%.2f_sim_%02d_snap_%05d.txt",
+                    rho, spd, noise,
+                    sim,
+                    noise, sim, k);
 
-            std::ifstream in(fpath);
-            if (!in) continue;
+                std::ifstream in(fpath);
+                if (!in) continue;
 
-            std::vector<double> x(N), y(N), th(N);
-            int cnt = 0;
-            while (cnt < N && (in >> x[cnt] >> y[cnt] >> th[cnt])) cnt++;
-            if (cnt != N) continue;
+                std::vector<double> x(N), y(N), th(N);
+                int cnt = 0;
+                while (cnt < N && (in >> x[cnt] >> y[cnt] >> th[cnt])) cnt++;
+                if (cnt != N) continue;
 
-            Component best = choose_lcc(x, y, r, has_prev, prev_cx, prev_cy);
-            has_prev = true;
-            prev_cx = best.cx;
-            prev_cy = best.cy;
+                Component best = choose_lcc(x, y, r, has_prev, prev_cx, prev_cy);
+                has_prev = true;
+                prev_cx = best.cx;
+                prev_cy = best.cy;
 
-            out << k << " " << best.nodes.size();
-            for (int id : best.nodes) out << " " << id;
-            out << "\n";
-        }
+                if ((int)best.nodes.size() < 5) continue;
 
-        std::cout << "wrote " << outname << std::endl;
+                out << k << " " << best.nodes.size();
+                for (int id : best.nodes) out << " " << id;
+                out << "\n";
+                break;
+            }
+
+            #pragma omp critical
+            std::cout << "wrote " << outname << std::endl;
+            }
     }
 
     std::cout << "DONE.\n";
